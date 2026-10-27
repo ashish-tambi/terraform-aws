@@ -17,11 +17,6 @@ output "lock_table_name" {
   value       = aws_dynamodb_table.terraform_lock.id
 }
 
-output "github_actions_role_arn" {
-  description = "ARN of the IAM role for GitHub Actions (use in workflows)"
-  value       = var.enable_github_oidc ? aws_iam_role.github_actions[0].arn : "OIDC not enabled"
-}
-
 output "account_id" {
   description = "AWS Account ID (use this to update backend.tf files)"
   value       = data.aws_caller_identity.current.account_id
@@ -35,10 +30,7 @@ output "next_steps" {
 
     Next steps:
     1. Replace <ACCOUNT_ID> in all backend.tf files with: ${data.aws_caller_identity.current.account_id}
-    2. Add GitHub Actions secrets:
-       - AWS_ROLE_ARN = ${var.enable_github_oidc ? aws_iam_role.github_actions[0].arn : "N/A"}
-       - AWS_REGION   = ${var.aws_region}
-    3. Initialize each environment:
+    2. Initialize each environment:
        cd environments/dev && terraform init
        cd environments/staging && terraform init
        cd environments/prod && terraform init
