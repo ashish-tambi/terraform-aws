@@ -1,8 +1,11 @@
+# =============================================================================
+# Terraform .gitignore
+# =============================================================================
 
 # Terraform working directory
 .terraform/
 
-# Terraform state files (may contain sensitive data)
+# Terraform state files (state is stored in S3, never commit)
 *.tfstate
 *.tfstate.*
 
@@ -10,11 +13,14 @@
 crash.log
 crash.*.log
 
-# Sensitive variable files
-*.tfvars
-*.tfvars.json
+# Sensitive variable files (secrets should be in env vars or AWS Secrets Manager)
 *.auto.tfvars
 *.auto.tfvars.json
+secret.tfvars
+secrets.tfvars
+
+# NOTE: terraform.tfvars in environments/ ARE committed intentionally
+# They contain non-sensitive environment config (CIDRs, instance types, etc.)
 
 # Override files
 override.tf
@@ -27,3 +33,16 @@ override.tf.json
 terraform.rc
 *.tfplan
 
+# Lock file (commit this — ensures consistent provider versions)
+# !.terraform.lock.hcl
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

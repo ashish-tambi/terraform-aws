@@ -1,0 +1,20 @@
+# =============================================================================
+# CODEOWNERS
+# Defines who must review changes to specific paths
+# Requires "Require review from Code Owners" enabled in branch protection
+# =============================================================================
+
+# Default: any team member can review
+*                               @your-org/terraform-team
+
+# Production changes require senior engineer / lead approval
+environments/prod/              @your-org/terraform-leads
+
+# Module changes affect ALL environments — require careful review
+modules/                        @your-org/terraform-leads
+
+# CI/CD pipeline changes require DevOps review
+.github/                        @your-org/devops-team
+
+# Bootstrap (state infra) changes require admin review
+bootstrap/                      @your-org/terraform-admins
